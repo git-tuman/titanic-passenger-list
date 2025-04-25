@@ -3,12 +3,69 @@
     padding: 0;
 }
 
+.app {
+    display: grid;
+    justify-items: center;
+}
+
 .container {
-    height: 100vh;
+    width: fit-content;
+    border: dashed 1px;
+    margin: 8px;
+    padding: 8px;
+}
+
+form {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background-color: #000000;
-    color: #FFFFFF;
+    gap: 16px;
+    padding: 16px;
+    // position: fixed;
+
+    input {
+        background-color: white;
+        font-size: large;
+        border: 1px dashed;
+        padding: 8px;
+        transition: background-color 0.3s ease;
+
+        &:focus {
+            outline: none;
+            background-color: whitesmoke;
+        }
+    }
+
+    button {
+        background-color: white;
+        font-size: large;
+        border: dashed 1px;
+        padding: 8px 16px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: whitesmoke;
+        }
+    }
+}
+
+.list {
+    display: grid;
+    gap: 8px;
+}
+
+.list-item {
+    display: flex;
+    padding: 8px;
+    border: 1px dashed;
+    gap: 16px;
+}
+
+.info {
+    display: grid;
+    gap: 4px;
+}
+
+.right-align {
+    margin-left: auto;
 }
