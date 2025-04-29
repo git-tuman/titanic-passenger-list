@@ -12,7 +12,9 @@
         "@reduxjs/toolkit": "^2.7.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-redux": "^9.2.0"
+        "react-redux": "^9.2.0",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^3.1.0"
     },
     "devDependencies": {
         "@svgr/webpack": "^8.1.0",
@@ -20,6 +22,7 @@
         "@types/node": "^22.8.7",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
+        "@types/redux-logger": "^3.0.13",
         "@types/webpack": "^5.28.5",
         "@typescript-eslint/eslint-plugin": "^8.13.0",
         "@typescript-eslint/parser": "^8.13.0",

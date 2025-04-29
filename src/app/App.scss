@@ -20,7 +20,6 @@ form {
     justify-content: center;
     gap: 16px;
     padding: 16px;
-    // position: fixed;
 
     input {
         background-color: white;
@@ -55,7 +54,8 @@ form {
 }
 
 .list-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 300px auto auto 120px;
     padding: 8px;
     border: 1px dashed;
     gap: 16px;
@@ -68,4 +68,8 @@ form {
 
 .right-align {
     margin-left: auto;
+}
+
+.name {
+    word-break: break-word;
 }
