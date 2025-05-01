@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchPassengers } from '../../api/passengersApi';
+import { LOADING_ERROR } from '../../constants';
 
 export interface Passenger {
     id: number;
@@ -50,7 +51,7 @@ const passengersSlice = createSlice({
             .addCase(fetchPassengers.rejected, (state, action) => ({
                 ...state,
                 loading: false,
-                error: action.error.message || 'Loading error',
+                error: action.error.message || LOADING_ERROR,
             }));
     },
 });
