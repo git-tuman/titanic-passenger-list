@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 import ListItem from './ListItem';
 import { RootState } from '../app/store';
 import { Passenger } from '../app/store/passengersSlice';
@@ -34,55 +35,52 @@ const getFilteredPassengers = (
     }
 };
 
-const PassengerList = memo(
-    ({
-        visibleCount,
-        refCallback,
-    }: {
-        visibleCount: number;
-        refCallback: (node: Element | null) => void;
-    }) => {
-        const { passengers, loading, error } = useSelector(
-            (state: RootState) => state.passengers,
-        );
-        const [list, setList] = useState<Passenger[]>([]);
+const PassengerList = memo(() => {
+    const { passengers, loading, error } = useSelector(
+        (state: RootState) => state.passengers,
+    );
+    const { selectedOption, valueFilter } = useSelector(
+        (state: RootState) => state.filter,
+    );
 
-        const { selectedOption, valueFilter } = useSelector(
-            (state: RootState) => state.filter,
-        );
+    const [list, setList] = useState<Passenger[]>([]);
 
-        useEffect(() => {
-            if (valueFilter !== null) {
-                setList(
-                    getFilteredPassengers(
-                        passengers,
-                        selectedOption,
-                        valueFilter,
-                    ),
-                );
-            } else if (selectedOption === UNFILTERED) {
-                setList(passengers);
-            }
-        }, [valueFilter, passengers, selectedOption]);
+    const [visibleCount, setVisibleCount] = useState(20);
+    const { ref, inView } = useInView({ threshold: 0.1 });
 
-        if (loading) return <span>{LOADING}</span>;
+    useEffect(() => {
+        if (inView) {
+            setVisibleCount((prev) => prev + 20);
+        }
+    }, [inView]);
 
-        if (error) return <span>{error}</span>;
+    useEffect(() => {
+        setVisibleCount(20);
 
-        return (
-            <ul className="list">
-                {list.slice(0, visibleCount).map((item, index) => (
-                    <ListItem
-                        key={item.id}
-                        item={item}
-                        reference={
-                            index === visibleCount - 1 ? refCallback : null
-                        }
-                    />
-                ))}
-            </ul>
-        );
-    },
-);
+        if (valueFilter !== null) {
+            setList(
+                getFilteredPassengers(passengers, selectedOption, valueFilter),
+            );
+        } else if (selectedOption === UNFILTERED) {
+            setList(passengers);
+        }
+    }, [valueFilter, passengers, selectedOption]);
+
+    if (loading) return <span>{LOADING}</span>;
+
+    if (error) return <span>{error}</span>;
+
+    return (
+        <ul className="list">
+            {list.slice(0, visibleCount).map((item, index) => (
+                <ListItem
+                    key={item.id}
+                    item={item}
+                    reference={index === visibleCount - 1 ? ref : null}
+                />
+            ))}
+        </ul>
+    );
+});
 
 export default PassengerList;

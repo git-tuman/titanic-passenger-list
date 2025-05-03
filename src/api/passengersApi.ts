@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchPassengers = createAsyncThunk(
-    '/passengers.json',
+    'fetch/passengers',
     async () => {
-        const response = await fetch('/passengers.json');
+        const response = await fetch('./passengers.json');
         const data = await response.json();
         return data;
     },

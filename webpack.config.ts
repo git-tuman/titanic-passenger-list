@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import 'webpack-dev-server';
 import path from 'path';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
@@ -9,7 +10,7 @@ const config: webpack.Configuration = {
     context: path.resolve(__dirname, 'src'),
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
         filename: '[name].[contenthash:8].js',
     },
     devServer: {
@@ -18,6 +19,14 @@ const config: webpack.Configuration = {
     plugins: [
         new HTMLWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html'),
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'public/passengers.json'),
+                    to: path.resolve(__dirname, 'build'),
+                },
+            ],
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
