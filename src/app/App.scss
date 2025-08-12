@@ -6,6 +6,8 @@
 .app {
     display: grid;
     justify-items: center;
+    background: azure;
+    font-size: large;
 }
 
 .container {
@@ -117,6 +119,7 @@
     padding: 8px;
     border: 1px dashed;
     gap: 16px;
+    background: white;
 }
 
 .info {
