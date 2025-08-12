@@ -6,7 +6,6 @@
 .app {
     display: grid;
     justify-items: center;
-    background: azure;
     font-size: large;
 }
 
@@ -16,6 +15,7 @@
     margin: 8px;
     justify-items: center;
     padding: 8px;
+    background: azure;
 }
 
 .search-form {
